@@ -4,7 +4,7 @@ import FooterSection from "@/components/FooterSection";
 import PageContentSection from "@/components/PageContentSection";
 import FAQSection from "@/components/FAQSection";
 import { fetchAPI } from "../../lib/api";
-// Удалён импорт Head
+
 
 function parseCasino(casino: any) {
   let logo = null;
