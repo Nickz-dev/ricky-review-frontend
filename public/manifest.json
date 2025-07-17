@@ -1,0 +1,22 @@
+{
+  "name": "RickyCasinos",
+  "short_name": "Ricky",
+  "description": "Рейтинг и обзоры лучших RU онлайн казино 2025",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff9800",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+} 

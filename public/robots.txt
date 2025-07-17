@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /out/
+
+Sitemap: https://rickycasinos.net/sitemap.xml 
