@@ -3,9 +3,12 @@ import React from "react";
 import PromoSection from "@/components/PromoSection";
 import { fetchAPI } from "../../../../lib/api";
 import CasinoReviewPageClient from "./CasinoReviewPageClient";
-// Удалён импорт Head
+import { Metadata, ResolvingMetadata } from "next";
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
   const slug = params.slug;
   const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[seo]=*`);
   const casino = data && data.length > 0 ? data[0] : null;
@@ -31,8 +34,12 @@ export async function generateMetadata({ params }, parent) {
   };
 }
 
-export default async function CasinoReviewPage(props) {
-  const params = await props.params; // костыль для async layout
+interface CasinoPageProps {
+  params: { slug: string };
+}
+
+export default async function CasinoReviewPage(props: CasinoPageProps) {
+  const { params } = props;
   const slug = params.slug;
 
   // 1. Получить казино по slug (populate[seo]=*)
@@ -64,8 +71,8 @@ export default async function CasinoReviewPage(props) {
 
   // Фильтрация и парсинг промо под твою структуру
   const filteredPromos = promosArr
-    .filter((promo) => promo.casino && String(promo.casino.id) === String(casinoObj.id))
-    .map((promo) => ({
+    .filter((promo: any) => promo.casino && String(promo.casino.id) === String(casinoObj.id))
+    .map((promo: any) => ({
       id: promo.id,
       title: promo.title,
       description: promo.description,
