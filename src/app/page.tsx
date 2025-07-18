@@ -5,7 +5,6 @@ import PageContentSection from "@/components/PageContentSection";
 import FAQSection from "@/components/FAQSection";
 import { fetchAPI } from "../../lib/api";
 
-
 function parseCasino(casino: any) {
   let logo = null;
   if (casino.logo && Array.isArray(casino.logo) && casino.logo.length > 0) {
@@ -14,18 +13,22 @@ function parseCasino(casino: any) {
       ? (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337") + logoObj.url
       : null;
   }
-  let category = null;
-  if (casino.casino_category) {
-    category = {
-      id: casino.casino_category.id,
-      name: casino.casino_category.name,
-      slug: casino.casino_category.slug,
-    };
+  // Теперь категории — массив
+  let categories = [];
+  if (Array.isArray(casino.casino_categories)) {
+    categories = casino.casino_categories.map((cat: any) => ({
+      id: cat.id,
+      name: cat.name,
+      slug: cat.slug,
+    }));
   }
+  // FAQ — массив
+  const faqs = Array.isArray(casino.faqs) ? casino.faqs : [];
   return {
     ...casino,
     logo,
-    category,
+    categories,
+    faqs,
   };
 }
 
@@ -71,24 +74,30 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const hero = await fetchAPI("hero-sections?populate=background");
+  const heroArr = await fetchAPI("hero-sections?populate=background");
+  const hero = Array.isArray(heroArr) ? heroArr[0] : null;
   const brandArr = await fetchAPI("brands?populate=logo");
   const brand = Array.isArray(brandArr) ? brandArr[0] : null;
-  const pageContents = await fetchAPI("page-contens?populate=faq");
+  const pageContentsArr = await fetchAPI("page-contens?populate=faqs");
+  const pageContent = Array.isArray(pageContentsArr) ? pageContentsArr[0] : null;
+  const faqs = pageContent?.faqs || [];
   const games = await fetchAPI("games?populate=*");
   const categories = await fetchAPI("game-categories");
   const trustBlocks = await fetchAPI("trust-blocks");
-  const footer = await fetchAPI("footers");
-  const casinoCategories = await fetchAPI("casino-categories?populate=icon");
-  const casinos = await fetchAPI("casinos?populate=*");
+  const footerArr = await fetchAPI("footers");
+  const footer = Array.isArray(footerArr) ? footerArr[0] : null;
+  const casinoCategoriesArr = await fetchAPI("casino-categories?populate=icon");
+  const casinoCategories = Array.isArray(casinoCategoriesArr) ? casinoCategoriesArr.map(parseCategory) : [];
+  const casinosArr = await fetchAPI("casinos?populate=*");
+  const casinos = Array.isArray(casinosArr) ? casinosArr.map(parseCasino) : [];
 
   return (
     <main className="bg-black min-h-screen text-white">
-      <HeroSection hero={hero[0]} />
-      <CasinoListClient casinos={casinos.map(parseCasino)} categories={casinoCategories.map(parseCategory)} />
-      <PageContentSection contents={pageContents} pageType="landing" />
-      <FAQSection faqs={[]} />
-      <FooterSection footer={footer[0]} />
+      <HeroSection hero={hero} />
+      <CasinoListClient casinos={casinos} categories={casinoCategories} />
+      <PageContentSection contents={pageContentsArr} pageType="landing" />
+      <FAQSection faqs={faqs} />
+      <FooterSection footer={footer} />
     </main>
   );
 }
