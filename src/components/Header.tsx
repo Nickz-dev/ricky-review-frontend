@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ brand, modalContents }) => {
           <div className="flex items-center gap-4">
             {brand && Array.isArray(brand.logo) && brand.logo.length > 0 && (
               <Link href="/">
-                <img src={`http://localhost:1337${brand.logo[0].url}`} alt="logo" className="h-8 w-auto cursor-pointer" />
+                <img src={`${process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"}${brand.logo[0].url}`} alt="logo" className="h-8 w-auto cursor-pointer" />
               </Link>
             )}
             {/* {brand?.brand && (
