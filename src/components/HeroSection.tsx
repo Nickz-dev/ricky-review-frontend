@@ -31,12 +31,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
   if (!hero) return null;
   // Получаем url фонового изображения
   let bgUrl = undefined;
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
   if (hero.background && hero.background.length > 0) {
     const bg = hero.background[0];
     bgUrl = bg.formats?.large?.url
-      ? `http://localhost:1337${bg.formats.large.url}`
+      ? `${strapiUrl}${bg.formats.large.url}`
       : bg.url
-        ? `http://localhost:1337${bg.url}`
+        ? `${strapiUrl}${bg.url}`
         : undefined;
   }
 
