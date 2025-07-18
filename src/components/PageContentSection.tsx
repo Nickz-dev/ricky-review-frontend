@@ -51,7 +51,7 @@ const PageContentSection: React.FC<PageContentSectionProps> = ({ contents, pageT
   const html = content.content || content.contents;
   const buttonText = content.buttonText;
   const buttonUrl = content.buttonUrl;
-  const rawFaq = content.faq;
+  const rawFaq = content.faqs || [];
   let faqs: any[] = [];
   if (Array.isArray(rawFaq)) {
     faqs = rawFaq;

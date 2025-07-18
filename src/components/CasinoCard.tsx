@@ -10,7 +10,7 @@ interface CasinoCardProps {
     logo?: string;
     country?: string;
     rating?: number;
-    category?: { id: number; name: string; slug: string } | null;
+    categories?: { id: number; name: string; slug: string }[];
     promoBanner?: string;
     promoCode?: string;
     promoDescription?: string;
@@ -62,11 +62,11 @@ const CasinoCard: React.FC<CasinoCardProps> = ({ casino }) => {
         </div>
         {/* Категория */}
         <div className="flex flex-wrap gap-2 mb-2">
-          {casino.category && (
-            <span className="bg-[#2c2b3a] text-orange-300 text-xs px-2 py-0.5 rounded font-semibold uppercase tracking-wide">
-              {casino.category.name}
+          {Array.isArray(casino.categories) && casino.categories.map((cat: any) => (
+            <span key={cat.id} className="bg-[#2c2b3a] text-orange-300 text-xs px-2 py-0.5 rounded font-semibold uppercase tracking-wide">
+              {cat.name}
             </span>
-          )}
+          ))}
         </div>
         {/* Промо-баннер и промокод */}
         {casino.promoBanner && (
