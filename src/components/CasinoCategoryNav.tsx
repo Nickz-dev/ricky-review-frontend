@@ -20,7 +20,22 @@ const CasinoCategoryNav: React.FC<CasinoCategoryNavProps> = ({ categories, selec
 
   return (
     <div className="flex justify-center w-full">
-      <nav className="flex items-center gap-6 overflow-x-auto py-4 px-2 bg-gradient-to-r from-[#1a1122] to-[#181024] border-b border-[#2c2b3a] justify-center w-full">
+      {/* Мобильный select */}
+      <div className="block md:hidden w-full px-2 py-4">
+        <select
+          className="w-full rounded-lg bg-[#20162e] text-white px-4 py-2 border border-[#2c2b3a] focus:border-orange-400 focus:shadow-orange-200/20"
+          value={selected}
+          onChange={e => onSelect(e.target.value)}
+        >
+          {categories.map(cat => (
+            <option key={cat.id} value={cat.slug}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      {/* Десктопный nav */}
+      <nav className="hidden md:flex items-center gap-6 overflow-x-auto py-4 px-2 bg-gradient-to-r from-[#1a1122] to-[#181024] border-b border-[#2c2b3a] justify-center w-full">
         {categories.map(cat => (
           <button
             key={cat.id}
