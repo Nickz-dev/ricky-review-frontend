@@ -11,7 +11,7 @@ export default function CasinoListClient({ casinos, categories }: { casinos: any
     return casinos.filter((casino: any) => {
       const inCategory =
         !selectedCategory ||
-        (casino.casino_category && casino.casino_category.slug === selectedCategory);
+        (Array.isArray(casino.categories) && casino.categories.some((cat: any) => cat.slug === selectedCategory));
       const inSearch =
         !search ||
         (casino.title && casino.title.toLowerCase().includes(search.toLowerCase()));

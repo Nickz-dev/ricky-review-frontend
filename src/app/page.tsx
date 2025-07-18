@@ -96,7 +96,6 @@ export default async function Home() {
       <HeroSection hero={hero} />
       <CasinoListClient casinos={casinos} categories={casinoCategories} />
       <PageContentSection contents={pageContentsArr} pageType="landing" />
-      <FAQSection faqs={faqs} />
       <FooterSection footer={footer} />
     </main>
   );
