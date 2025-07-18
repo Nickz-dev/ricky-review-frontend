@@ -108,6 +108,12 @@ export default function CasinoReviewPageClient({ casino, promos, modals, meta, r
       {allAnchors.length > 0 && <AnchorNav anchors={allAnchors} />}
       {/* Промо для этого казино */}
       <PromoSection promos={promos} />
+      {/* H1 с названием казино */}
+      {casino.title && (
+        <h1 className="text-4xl md:text-5xl font-extrabold text-orange-400 text-center mb-8 drop-shadow-lg">
+          {casino.title}
+        </h1>
+      )}
       {/* Обзор */}
       <section className="relative my-12">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1a1122] via-[#221a33] to-[#2c2b3a] rounded-2xl shadow-2xl opacity-90 blur-sm -z-10" />
