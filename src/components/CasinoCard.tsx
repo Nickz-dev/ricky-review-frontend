@@ -61,7 +61,7 @@ const CasinoCard: React.FC<CasinoCardProps> = ({ casino }) => {
       {/* Основная информация */}
       <div className="flex-1 w-full flex flex-col gap-2">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <h3 className="text-2xl font-extrabold text-white mr-2">{casino.title}</h3>
+          <h4 className="text-2xl font-extrabold text-white mr-2">{casino.title}</h4>
           {casino.rating && (
             <span className="ml-2 text-yellow-400 font-bold flex items-center">★ {casino.rating.toFixed(1)}</span>
           )}
