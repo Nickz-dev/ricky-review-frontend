@@ -22,6 +22,7 @@ interface CasinoCardProps {
     isVerified?: boolean;
     isLicensed?: boolean;
     playUrl?: string; // ссылка на казино для кнопки 'Играть'
+    languages?: string[]; // Добавляем поле для языков
   };
 }
 
@@ -67,6 +68,16 @@ const CasinoCard: React.FC<CasinoCardProps> = ({ casino }) => {
             <span className="ml-2 text-yellow-400 font-bold flex items-center">★ {casino.rating.toFixed(1)}</span>
           )}
         </div>
+        {/* Языки казино */}
+        {Array.isArray(casino.languages) && casino.languages.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-2">
+            {casino.languages.map((lang: string, idx: number) => (
+              <span key={lang + idx} className="bg-gray-700 text-white text-xs px-2 py-0.5 rounded font-semibold uppercase tracking-wide">
+                {lang}
+              </span>
+            ))}
+          </div>
+        )}
         {/* Категория */}
         <div className="flex flex-wrap gap-2 mb-2">
           {Array.isArray(casino.categories) && casino.categories.map((cat: any) => (
