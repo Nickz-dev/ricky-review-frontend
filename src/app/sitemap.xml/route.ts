@@ -9,7 +9,7 @@ export async function GET() {
     const res = await fetch(`${strapiUrl}/api/casinos?fields[0]=slug`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error("Failed to fetch from Strapi");
     const data = await res.json();
-    const casinoSlugs: string[] = data.data?.map((item: any) => item.attributes?.slug).filter(Boolean) || [];
+    const casinoSlugs: string[] = data.data?.map((item: any) => item.slug).filter(Boolean) || [];
 
     const urls = [
       "", // главная
