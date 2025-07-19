@@ -5,10 +5,8 @@ import { fetchAPI } from "../../../../lib/api";
 import CasinoReviewPageClient from "./CasinoReviewPageClient";
 import { Metadata, ResolvingMetadata } from "next";
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } },
-  parent?: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(props: any, parent?: any): Promise<Metadata> {
+  const params = await Promise.resolve(props.params);
   const slug = params.slug;
   const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[seo]=*`);
   const casino = data && data.length > 0 ? data[0] : null;
@@ -34,7 +32,8 @@ export async function generateMetadata(
   };
 }
 
-export default async function CasinoReviewPage({ params }: { params: { slug: string } }) {
+export default async function CasinoReviewPage(props: any) {
+  const params = await Promise.resolve(props.params);
   const slug = params.slug;
 
   // 1. Получить казино по slug (populate[seo]=*)
