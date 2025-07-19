@@ -5,8 +5,11 @@ import { fetchAPI } from "../../../../lib/api";
 import CasinoReviewPageClient from "./CasinoReviewPageClient";
 import { Metadata, ResolvingMetadata } from "next";
 
-export async function generateMetadata(params: any, parent?: any): Promise<any> {
-  const slug = params?.params?.slug;
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent?: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
   const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[seo]=*`);
   const casino = data && data.length > 0 ? data[0] : null;
   const seo = casino?.seo || {};
@@ -31,13 +34,13 @@ export async function generateMetadata(params: any, parent?: any): Promise<any> 
   };
 }
 
-export default async function CasinoReviewPage(props: any) {
-  const slug = props?.params?.slug;
+export default async function CasinoReviewPage({ params }: { params: { slug: string } }) {
+  const slug = params.slug;
 
   // 1. Получить казино по slug (populate[seo]=*)
   let casinoObj = null;
   try {
-    const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[reviewBlocks][populate]=*&populate[seo]=*`);
+    const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[reviewBlocks][populate]=*&populate[seo]=*&populate=promo`);
     casinoObj = data && data.length > 0 ? data[0] : null;
   } catch (e) {
     return <div className="text-center py-12 text-lg text-red-400">Ошибка загрузки казино</div>;
