@@ -20,7 +20,9 @@ export async function GET() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    (url) => `<url><loc>${baseUrl.replace(/\/$/, "")}${url ? "/" + url : ""}</loc></url>`
+    (url) => url
+      ? `<url><loc>${baseUrl.replace(/\/$/, "")}${url}</loc></url>`
+      : `<url><loc>${baseUrl.replace(/\/$/, "")}</loc></url>`
   )
   .join("\n")}
 </urlset>`;
