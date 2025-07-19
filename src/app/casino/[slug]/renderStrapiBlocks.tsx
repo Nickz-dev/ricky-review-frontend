@@ -9,19 +9,8 @@ function renderRichText(nodes: any[]) {
       // Anchor link внутри страницы
       if (node.url.startsWith("#")) {
         const children = node.children ? node.children.map(renderRichText) : node.text;
-        // Если есть id или name, рендерим якорь
-        if (node.id || node.name) {
-          return (
-            <a key={idx} {...(node.id ? { id: node.id } : {})} {...(node.name ? { name: node.name } : {})}>
-              {children}
-            </a>
-          );
-        }
-        // Обычная ссылка-якорь
-        const anchorProps: any = { href: node.url, key: idx };
-        if (node.className) anchorProps.className = node.className;
         return (
-          <a {...anchorProps}>
+          <a key={idx} href={node.url} {...(node.className ? { className: node.className } : {})}>
             {children}
           </a>
         );
