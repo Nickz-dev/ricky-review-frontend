@@ -6,9 +6,19 @@ function renderRichText(nodes: any[]) {
   return nodes.map((node, idx) => {
     // Ссылка
     if (node.type === "link" && node.url) {
+      console.log("LINK NODE", node);
       // Anchor link внутри страницы
       if (node.url.startsWith("#")) {
-        const children = node.children ? node.children.map(renderRichText) : node.text;
+        let children = null;
+        if (node.children && node.children.length > 0) {
+          children = node.children.map(renderRichText);
+        } else if (node.text) {
+          children = node.text;
+        } else if (node.value) {
+          children = node.value;
+        } else {
+          children = null;
+        }
         return (
           <a key={idx} href={node.url} {...(node.className ? { className: node.className } : {})}>
             {children}
@@ -17,7 +27,16 @@ function renderRichText(nodes: any[]) {
       }
       // Внутренние ссылки (на сайт)
       const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
-      const children = node.children ? node.children.map(renderRichText) : node.text;
+      let children = null;
+      if (node.children && node.children.length > 0) {
+        children = node.children.map(renderRichText);
+      } else if (node.text) {
+        children = node.text;
+      } else if (node.value) {
+        children = node.value;
+      } else {
+        children = null;
+      }
       if (isInternal) {
         const href = node.url.replace(/^https?:\/\/[^/]+/, "");
         return (
