@@ -8,7 +8,7 @@ interface CasinoCardProps {
     title: string;
     slug: string;
     logo?: string;
-    country?: string;
+    country?: string; // теперь используем это поле для бейджей
     rating?: number;
     categories?: { id: number; name: string; slug: string }[];
     promoBanner?: string;
@@ -22,7 +22,6 @@ interface CasinoCardProps {
     isVerified?: boolean;
     isLicensed?: boolean;
     playUrl?: string; // ссылка на казино для кнопки 'Играть'
-    languages?: string[]; // Добавляем поле для языков
   };
 }
 
@@ -68,12 +67,12 @@ const CasinoCard: React.FC<CasinoCardProps> = ({ casino }) => {
             <span className="ml-2 text-yellow-400 font-bold flex items-center">★ {casino.rating.toFixed(1)}</span>
           )}
         </div>
-        {/* Языки казино */}
-        {Array.isArray(casino.languages) && casino.languages.length > 0 && (
+        {/* Страны казино (country) */}
+        {casino.country && (
           <div className="flex flex-wrap gap-1 mb-2">
-            {casino.languages.map((lang: string, idx: number) => (
-              <span key={lang + idx} className="bg-gray-700 text-white text-xs px-2 py-0.5 rounded font-semibold uppercase tracking-wide">
-                {lang}
+            {casino.country.split(/\s+/).map((country: string, idx: number) => (
+              <span key={country + idx} className="bg-gray-700 text-white text-xs px-2 py-0.5 rounded font-semibold uppercase tracking-wide">
+                {country}
               </span>
             ))}
           </div>
