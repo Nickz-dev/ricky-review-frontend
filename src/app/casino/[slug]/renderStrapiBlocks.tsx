@@ -6,7 +6,6 @@ function renderRichText(nodes: any[]) {
   return nodes.map((node, idx) => {
     // Ссылка
     if (node.type === "link" && node.url) {
-      console.log("LINK NODE", node);
       // Anchor link внутри страницы
       if (node.url.startsWith("#")) {
         let children = null;
