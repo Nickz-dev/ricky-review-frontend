@@ -6,6 +6,15 @@ function renderRichText(nodes: any[]) {
   return nodes.map((node, idx) => {
     // Ссылка
     if (node.type === "link" && node.url) {
+      if (node.url.startsWith("#")) {
+        // Якорь внутри страницы
+        const children = node.children ? node.children.map(renderRichText) : node.text;
+        return (
+          <a key={idx} href={node.url}>
+            {children}
+          </a>
+        );
+      }
       const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
       const children = node.children ? node.children.map(renderRichText) : node.text;
       if (isInternal) {
