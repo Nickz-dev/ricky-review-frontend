@@ -50,35 +50,8 @@ export default async function CasinoReviewPage(props: any) {
   // Получаем reviewBlocks (Dynamic Zone) из объекта казино
   const reviewBlocks = Array.isArray(casinoObj.reviewBlocks) ? casinoObj.reviewBlocks : [];
 
-  // 2. Получить все промо (populate для backgroundImage и casino) — через fetch
-  let promosArr = [];
-  try {
-    const promosData = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337"}/api/promos?populate[casino]=1&populate[backgroundImage]=1`
-    ).then(res => res.json());
-    promosArr = promosData && Array.isArray(promosData.data) ? promosData.data : [];
-  } catch (e) {
-    // Можно показать ошибку или оставить promosArr пустым
-  }
-
-  // Фильтрация и парсинг промо под твою структуру
-  const filteredPromos = promosArr
-    .filter((promo: any) => promo.casino && String(promo.casino.id) === String(casinoObj.id))
-    .map((promo: any) => ({
-      id: promo.id,
-      title: promo.title,
-      description: promo.description,
-      buttonText: promo.buttonText,
-      buttonUrl: promo.buttonUrl,
-      promoSubtitle: promo.promoSubtitle,
-      promoAmount: promo.promoAmount,
-      promoIcon: promo.promoIcon,
-      image:
-        promo.backgroundImage && promo.backgroundImage.length > 0
-          ? (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337") + promo.backgroundImage[0].url
-          : null,
-      // ...другие нужные поля
-    }));
+  // 2. Получить промо для этого казино из связи promos
+  const promos = Array.isArray(casinoObj.promos) ? casinoObj.promos : [];
 
   // 3. Получить meta-данные для страницы казино
   let meta = null;
@@ -110,7 +83,7 @@ export default async function CasinoReviewPage(props: any) {
     <>
       <CasinoReviewPageClient
         casino={casinoObj}
-        promos={filteredPromos}
+        promos={promos}
         modals={modals}
         meta={meta}
         reviewBlocks={reviewBlocks}

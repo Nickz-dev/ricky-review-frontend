@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import FAQSection from "./FAQSection";
+import Link from "next/link";
 
 
 interface PageContentSectionProps {
@@ -9,9 +10,32 @@ interface PageContentSectionProps {
 }
 
 function renderStrapiText(node: any, idx: number) {
+  // Ссылка
+  if (node.type === "link" && node.url) {
+    // Внутренняя ссылка (начинается с / или содержит rickycasinos.net)
+    const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
+    const children = node.children ? node.children.map(renderStrapiText) : node.text;
+    if (isInternal) {
+      // Убираем домен, если ссылка абсолютная
+      const href = node.url.replace(/^https?:\/\/[^/]+/, "");
+      return (
+        <Link key={idx} href={href} legacyBehavior>
+          <a>{children}</a>
+        </Link>
+      );
+    }
+    // Внешняя ссылка
+    return (
+      <a key={idx} href={node.url} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
+  }
+  // Жирный текст
   if (node.bold) {
     return <strong key={idx}>{node.text}</strong>;
   }
+  // Обычный текст
   return node.text;
 }
 

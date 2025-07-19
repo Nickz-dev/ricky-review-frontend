@@ -43,7 +43,14 @@ const CasinoCard: React.FC<CasinoCardProps> = ({ casino }) => {
       {/* Логотип и бейджи */}
       <div className="flex flex-col items-center min-w-[120px] w-full">
         {casino.logo && (
-          <img src={casino.logo} alt={casino.title} className="w-74 h-32 object-contain rounded-xl mb-2 bg-white/10" />
+          <div className="w-full aspect-w-16 aspect-h-9 mb-2 bg-white/10 rounded-xl overflow-hidden flex items-center justify-center">
+            <img
+              src={casino.logo}
+              alt={casino.title}
+              className="object-contain w-full h-full"
+              style={{ aspectRatio: '16/9', maxHeight: '180px' }}
+            />
+          </div>
         )}
         <div className="flex flex-wrap gap-1 mt-1 justify-center w-full">
           {casino.isTop && <span className="bg-green-500 text-xs text-white px-2 py-0.5 rounded font-bold">ТОП</span>}

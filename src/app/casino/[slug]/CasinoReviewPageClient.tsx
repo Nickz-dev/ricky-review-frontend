@@ -86,6 +86,10 @@ export default function CasinoReviewPageClient({ casino, promos, modals, meta, r
 
   return (
     <div className="w-full max-w-screen-2xl mx-auto py-10 px-4">
+      {/* Промо для этого казино (в самом верху) */}
+      <div className="mt-28">
+        <PromoSection promos={promos} />
+      </div>
       {/* Кнопки сверху */}
       <div className="flex flex-wrap gap-4 justify-center mb-8 mt-24 w-full">
         {casino.playUrl && (
@@ -106,8 +110,6 @@ export default function CasinoReviewPageClient({ casino, promos, modals, meta, r
         )}
       </div>
       {allAnchors.length > 0 && <AnchorNav anchors={allAnchors} />}
-      {/* Промо для этого казино */}
-      <PromoSection promos={promos} />
       {/* H1 с названием казино */}
       {casino.title && (
         <h1 className="text-4xl md:text-5xl font-extrabold text-orange-400 text-center mb-8 drop-shadow-lg">
