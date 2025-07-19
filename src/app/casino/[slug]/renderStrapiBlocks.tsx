@@ -10,7 +10,10 @@ function renderRichText(nodes: any[]) {
       if (node.url.startsWith("#")) {
         let children = null;
         if (node.children && node.children.length > 0) {
-          children = node.children.map(renderRichText).flat();
+          children = node.children.map((child: any) => {
+            if (child.type === "text") return child.text;
+            return renderRichText([child]);
+          }).flat();
         } else if (node.text) {
           children = node.text;
         } else if (node.value) {
@@ -28,7 +31,10 @@ function renderRichText(nodes: any[]) {
       const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
       let children = null;
       if (node.children && node.children.length > 0) {
-        children = node.children.map(renderRichText).flat();
+        children = node.children.map((child: any) => {
+          if (child.type === "text") return child.text;
+          return renderRichText([child]);
+        }).flat();
       } else if (node.text) {
         children = node.text;
       } else if (node.value) {
