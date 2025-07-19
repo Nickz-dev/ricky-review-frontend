@@ -10,31 +10,29 @@ function renderRichText(nodes: any[]) {
       if (node.url.startsWith("#")) {
         const children = node.children ? node.children.map(renderRichText) : node.text;
         // Если есть id, рендерим якорь
-        if (node.id) {
-          return (
-            <a key={idx} href={node.url} id={node.id} className="block">
-              {children}
-            </a>
-          );
-        }
+        const anchorProps: any = { href: node.url, key: idx };
+        if (node.id) anchorProps.id = node.id;
+        if (node.className) anchorProps.className = node.className;
         return (
-          <a key={idx} href={node.url}>
+          <a {...anchorProps}>
             {children}
           </a>
         );
       }
+      // Внутренние ссылки (на сайт)
       const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
       const children = node.children ? node.children.map(renderRichText) : node.text;
       if (isInternal) {
         const href = node.url.replace(/^https?:\/\/[^/]+/, "");
         return (
-          <Link key={idx} href={href} legacyBehavior>
-            <a>{children}</a>
+          <Link key={idx} href={href} {...(node.className ? { className: node.className } : {})}>
+            {children}
           </Link>
         );
       }
+      // Внешние ссылки
       return (
-        <a key={idx} href={node.url} target="_blank" rel="noopener noreferrer">
+        <a key={idx} href={node.url} target="_blank" rel="noopener noreferrer" {...(node.className ? { className: node.className } : {})}>
           {children}
         </a>
       );
