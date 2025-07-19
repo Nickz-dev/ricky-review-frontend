@@ -8,7 +8,7 @@ function renderRichText(nodes: any[]) {
     if (node.type === "link" && node.url) {
       // Anchor link внутри страницы
       if (node.url.startsWith("#")) {
-        const children = node.children ? node.children.map(renderRichText) : node.text;
+        const children = node.children ? node.children.map(renderRichText).flat() : node.text;
         // Если есть id, рендерим якорь
         const anchorProps: any = { href: node.url, key: idx };
         if (node.id) anchorProps.id = node.id;
@@ -21,7 +21,7 @@ function renderRichText(nodes: any[]) {
       }
       // Внутренние ссылки (на сайт)
       const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
-      const children = node.children ? node.children.map(renderRichText) : node.text;
+      const children = node.children ? node.children.map(renderRichText).flat() : node.text;
       if (isInternal) {
         const href = node.url.replace(/^https?:\/\/[^/]+/, "");
         return (
@@ -53,7 +53,7 @@ function renderRichText(nodes: any[]) {
     if (node.type === "paragraph") {
       return (
         <p key={idx} className="mb-4 text-base text-gray-200">
-          {node.children?.map((child: any, i: number) => renderRichText([child]))}
+          {node.children?.map((child: any, i: number) => renderRichText([child])).flat()}
         </p>
       );
     }
@@ -68,7 +68,7 @@ function renderRichText(nodes: any[]) {
             : "mt-4 mb-2 font-bold text-lg text-orange-200";
       return (
         <Tag key={idx} className={className}>
-          {node.children?.map((child: any, i: number) => renderRichText([child]))}
+          {node.children?.map((child: any, i: number) => renderRichText([child])).flat()}
         </Tag>
       );
     }
