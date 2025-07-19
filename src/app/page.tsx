@@ -25,7 +25,7 @@ function parseCasino(casino: any) {
   // FAQ — массив
   const faqs = Array.isArray(casino.faqs) ? casino.faqs : [];
   // Промо — массив
-  const promos = Array.isArray(casino.promos) ? casino.promos : [];
+  const promos = casino.promo ? [casino.promo] : [];
   return {
     ...casino,
     logo,

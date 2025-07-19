@@ -50,8 +50,8 @@ export default async function CasinoReviewPage(props: any) {
   // Получаем reviewBlocks (Dynamic Zone) из объекта казино
   const reviewBlocks = Array.isArray(casinoObj.reviewBlocks) ? casinoObj.reviewBlocks : [];
 
-  // 2. Получить промо для этого казино из связи promos
-  const promos = Array.isArray(casinoObj.promos) ? casinoObj.promos : [];
+  // 2. Получить промо для этого казино
+  const promos = casinoObj.promo ? [casinoObj.promo] : [];
 
   // 3. Получить meta-данные для страницы казино
   let meta = null;

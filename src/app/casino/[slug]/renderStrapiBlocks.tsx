@@ -1,17 +1,48 @@
 import React from "react";
+import Link from "next/link";
 
 function renderRichText(nodes: any[]) {
   if (!Array.isArray(nodes)) return null;
   return nodes.map((node, idx) => {
+    // Ссылка
+    if (node.type === "link" && node.url) {
+      const isInternal = node.url.startsWith("/") || node.url.includes("rickycasinos.net");
+      const children = node.children ? node.children.map(renderRichText) : node.text;
+      if (isInternal) {
+        const href = node.url.replace(/^https?:\/\/[^/]+/, "");
+        return (
+          <Link key={idx} href={href} legacyBehavior>
+            <a>{children}</a>
+          </Link>
+        );
+      }
+      return (
+        <a key={idx} href={node.url} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      );
+    }
+    // Anchor (якорь)
+    if (node.type === "anchor" && node.id) {
+      return <a key={idx} id={node.id} className="block" />;
+    }
+    // Жирный текст
+    if (node.bold) {
+      return <strong key={idx}>{node.text}</strong>;
+    }
+    // Обычный текст
+    if (node.type === "text") {
+      return node.text;
+    }
+    // Параграф
     if (node.type === "paragraph") {
       return (
         <p key={idx} className="mb-4 text-base text-gray-200">
-          {node.children?.map((child: any, i: number) =>
-            child.bold ? <b key={i}>{child.text}</b> : child.text
-          )}
+          {node.children?.map((child: any, i: number) => renderRichText([child]))}
         </p>
       );
     }
+    // Заголовки
     if (node.type === "heading") {
       const Tag = node.level === 3 ? "h3" : node.level === 4 ? "h4" : "h2";
       const className =
@@ -22,7 +53,7 @@ function renderRichText(nodes: any[]) {
             : "mt-4 mb-2 font-bold text-lg text-orange-200";
       return (
         <Tag key={idx} className={className}>
-          {node.children?.map((child: any, i: number) => child.text)}
+          {node.children?.map((child: any, i: number) => renderRichText([child]))}
         </Tag>
       );
     }
