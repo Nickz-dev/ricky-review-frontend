@@ -6,7 +6,6 @@ interface PromoSectionProps {
 }
 
 const PromoSection: React.FC<PromoSectionProps> = ({ promos }) => {
-  console.log("PROMOS:", promos);
   if (!Array.isArray(promos) || promos.length === 0) return null;
   return (
     <section className="mb-10 flex flex-col items-center w-full">
