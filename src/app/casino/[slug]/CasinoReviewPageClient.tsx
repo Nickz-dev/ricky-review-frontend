@@ -86,28 +86,30 @@ export default function CasinoReviewPageClient({ casino, promos, modals, meta, r
 
   return (
     <div className="w-full max-w-screen-2xl mx-auto py-10 px-4">
-      {/* Промо для этого казино (в самом верху) */}
-      <div className="mt-28">
-        <PromoSection promos={promos} />
-      </div>
-      {/* Кнопки сверху */}
-      <div className="flex flex-wrap gap-4 justify-center mb-8 mt-24 w-full">
-        {casino.playUrl && (
-          <SafeExternalLink
-            href={casino.playUrl}
-            className="flex-1 min-w-[200px] bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold px-8 py-3 rounded-lg shadow hover:brightness-110 transition border-2 border-orange-400 hover:border-pink-500 focus:outline-none focus:ring-2 focus:ring-orange-300 text-lg text-center"
-          >
-            CREATE ACCOUNT
-          </SafeExternalLink>
-        )}
-        {casino.playUrl && (
-          <SafeExternalLink
-            href={casino.playUrl}
-            className="flex-1 min-w-[200px] bg-[#2c2b3a] text-orange-300 font-bold px-8 py-3 rounded-lg shadow hover:bg-orange-400 hover:text-white transition border border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300 text-lg text-center"
-          >
-            LOGIN
-          </SafeExternalLink>
-        )}
+      {/* Промо и кнопки в одном контейнере */}
+      <div className="w-full max-w-5xl mx-auto">
+        <div className="mt-28">
+          <PromoSection promos={promos} />
+        </div>
+        {/* Кнопки сверху */}
+        <div className="flex flex-col md:flex-row gap-4 justify-center mb-8 mt-8 w-full">
+          {casino.playUrl && (
+            <SafeExternalLink
+              href={casino.playUrl}
+              className="w-full md:w-[calc(50%-0.5rem)] bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold px-8 py-3 rounded-lg shadow hover:brightness-110 transition border-2 border-orange-400 hover:border-pink-500 focus:outline-none focus:ring-2 focus:ring-orange-300 text-lg text-center"
+            >
+              CREATE ACCOUNT
+            </SafeExternalLink>
+          )}
+          {casino.playUrl && (
+            <SafeExternalLink
+              href={casino.playUrl}
+              className="w-full md:w-[calc(50%-0.5rem)] bg-[#2c2b3a] text-orange-300 font-bold px-8 py-3 rounded-lg shadow hover:bg-orange-400 hover:text-white transition border border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-300 text-lg text-center"
+            >
+              LOGIN
+            </SafeExternalLink>
+          )}
+        </div>
       </div>
       {allAnchors.length > 0 && <AnchorNav anchors={allAnchors} />}
       {/* H1 с названием казино */}

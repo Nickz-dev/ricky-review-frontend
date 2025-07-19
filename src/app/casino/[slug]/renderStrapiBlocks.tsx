@@ -6,9 +6,17 @@ function renderRichText(nodes: any[]) {
   return nodes.map((node, idx) => {
     // Ссылка
     if (node.type === "link" && node.url) {
+      // Anchor link внутри страницы
       if (node.url.startsWith("#")) {
-        // Якорь внутри страницы
         const children = node.children ? node.children.map(renderRichText) : node.text;
+        // Если есть id, рендерим якорь
+        if (node.id) {
+          return (
+            <a key={idx} href={node.url} id={node.id} className="block">
+              {children}
+            </a>
+          );
+        }
         return (
           <a key={idx} href={node.url}>
             {children}
