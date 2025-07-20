@@ -51,6 +51,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
       )}
       {/* Overlay-градиент */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/60 via-black/20 to-[#1a1122]/90" aria-hidden="true" />
+      {/* Еле заметный overlay для мягкости */}
+      <div className="absolute inset-0 w-full h-full bg-black opacity-20 pointer-events-none" aria-hidden="true" />
       {/* Контент */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-20 md:py-32">
         <div className="bg-black/70 backdrop-blur rounded-xl px-6 py-8 max-w-2xl mx-auto">
