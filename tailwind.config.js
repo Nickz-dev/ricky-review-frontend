@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Mulish', 'Inter', 'system-ui', 'sans-serif'],
         heading: ['Manrope', 'Montserrat', 'Rubik', 'sans-serif'],
       },
       animation: {

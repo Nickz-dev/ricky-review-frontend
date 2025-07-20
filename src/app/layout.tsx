@@ -57,6 +57,7 @@ export default async function RootLayout({
     <html lang="ru">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Manrope:wght@700;800&display=swap&subset=cyrillic" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;700&display=swap&subset=cyrillic" rel="stylesheet" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
