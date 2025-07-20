@@ -99,9 +99,9 @@ const PageContentSection: React.FC<PageContentSectionProps> = ({ contents, pageT
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="my-12 max-w-4xl mx-auto px-4">
+    <section className="my-12 max-w-screen-2xl mx-auto px-4">
       {mainTitle && (
-        <h2 className="text-5xl font-extrabold text-orange-400 text-center mb-6">{mainTitle}</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-orange-400 text-center mb-6">{mainTitle}</h2>
       )}
       {subtitle && (
         <h3 className="text-3xl font-bold text-orange-300 mb-4">{subtitle}</h3>

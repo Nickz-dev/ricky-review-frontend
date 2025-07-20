@@ -45,11 +45,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
     <section className="relative min-h-[480px] md:min-h-[600px] flex items-center justify-center text-center overflow-hidden">
       {/* Фоновое изображение */}
       {bgUrl && (
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${bgUrl})` }}
-          aria-hidden="true"
-        />
+        <div className="absolute inset-0 flex justify-center w-full h-full" aria-hidden="true">
+          <div className="w-full max-w-screen-2xl mx-auto h-full bg-cover bg-center" style={{ backgroundImage: `url(${bgUrl})` }} />
+        </div>
       )}
       {/* Overlay-градиент */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/60 via-black/20 to-[#1a1122]/90" aria-hidden="true" />
