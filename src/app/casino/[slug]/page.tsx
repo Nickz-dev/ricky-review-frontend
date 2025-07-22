@@ -10,7 +10,7 @@ export async function generateMetadata(props: any, parent?: any): Promise<Metada
   const slug = params.slug;
   const data = await fetchAPI(`casinos?filters[slug][$eq]=${slug}&populate[seo]=*`);
   const casino = data && data.length > 0 ? data[0] : null;
-  const seo = casino?.seo || {};
+  const seo = casino?.seo?.[0] || {};
   const domain = (seo.canonicalDomain || "http://rickycasinos.net").replace(/\/$/, "");
   const ogImage = seo.ogImage?.url ? domain + seo.ogImage.url : null;
   const canonical = domain + "/casino/" + casino?.slug;
