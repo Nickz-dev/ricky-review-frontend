@@ -18,9 +18,10 @@ export default function CasinoListClient({ casinos, categories }: { casinos: any
       const title = casino.title || casino.name || "";
       const description = casino.description || "";
       
-      return 
+      return (
         title.toLowerCase().includes(searchLower) ||
-        description.toLowerCase().includes(searchLower);
+        description.toLowerCase().includes(searchLower)
+      );
     });
   }, [casinos, search]);
 
